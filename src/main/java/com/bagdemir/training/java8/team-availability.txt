@@ -1,7 +1,0 @@
-Felix,Dev,8
-Dave,QE,10
-Jane,PO,9
-Steve,Dev,5
-Bob,Dev,9
-Stan,Dev,3
-Jule,QE,10
