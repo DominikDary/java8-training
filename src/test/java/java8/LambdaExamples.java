@@ -51,7 +51,7 @@ public class LambdaExamples {
 
     // Read the file in Java 7 style.
     try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-      br.lines().forEach((String line) -> System.out.println(line));
+      br.lines().forEach(System.out::println);
     }
     catch (Exception e) {
       System.out.println(e.getMessage());
@@ -130,13 +130,15 @@ public class LambdaExamples {
       return Integer.toString(x);
     }); // expected nothing to see.
 
+    System.out.println("> First stream really consumed?");
+
     // if we add an terminal operation
     long count = integers.stream().filter((x) -> x % 2 == 0).map(x -> {
       System.out.println(x);
       return Integer.toString(x);
     }).count();
 
-    System.out.println("total : " + count);
+    System.out.println("> Second stream consumed - total : " + count);
   }
 
 

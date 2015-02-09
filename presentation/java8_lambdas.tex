@@ -72,9 +72,7 @@
         				\begin{itemize}
         					\item Definition of Lambda.
         					\item Lambdas in Java.
-        					\item Lambdas in ByteCode.
-        					\item Lambda examples.
-					
+        					\item Lambda in Action.
 							\begin{itemize}
 								\item forEach(...) and default implementations
 								\item Streams
@@ -137,13 +135,13 @@
 			\includegraphics[width=5cm]{duke8}	
     	\end{column}
     	\begin{column}{0.7\textwidth}
-			Some examples of function Definitions:
+			Some examples of function definitions:
 			\begin{itemize}
-				\item \textbf{f(x) = x + 1} 
-				\item LISP: \textbf{(lambda (x) x + 1)}
-				\item C++11: \textbf{[](int x) \{ return x + 1; \} }
-				\item Scala: \textbf{x => x + 1 or just \_ + 1}
-				\item Java 8: \textbf{(int x) -> x + 1}
+				\item \textbf{in math f(x) = x + 1} 
+				\item in LISP: \textbf{(lambda (x) x + 1)}
+				\item in C++11: \textbf{[](int x) \{ return x + 1; \} }
+				\item in Scala: \textbf{x => x + 1 or just \_ + 1}
+				\item in Java 8: \textbf{(int x) -> x + 1}
 				\end{itemize}
   		\end{column}
 	\end{columns}
@@ -153,21 +151,16 @@
 		\section{Definition of Lambda}
 		The type of the lambda expressions are defined in \textbf{java.util.function}
 		\begin{lstlisting}
-			Function<Integer, String> toStr = (x) -> Integer.parseValue(x);
+			Function<Integer, String> toStr = x -> Integer.parseValue(x);
 
 		\end{lstlisting}
 		
 		You can pass lambdas as parameter:
 		
 		\begin{lstlisting}
-		final Function<Double, Double> withVAT = (x : Double) -> { return x * 1.19; }
-		fulfilShipment(move, 50.0d);
-			//...
-			private static Double fulfilShipment(Function<Double, Double> priceWithVAT, Double netPrice)
-			{
-			    perform(priceWithVAT.apply(netPrice));
-			}
-			
+		final Double forNetPrice = 50.0d;
+		final Function<Double, Double> withVAT = x -> x * 1.19;
+		prepareForShipment(withVAT, forPrice);
 		\end{lstlisting}
 	\end{frame}	
 	
@@ -177,7 +170,7 @@
 		\begin{lstlisting}
 			@FunctionalInterface
 			public interface WorkflowLambda {
-			    IAsset for(String clientId, String userId, MetadataView view);
+			    IAsset execute(String clientId, String userId, MetadataView view);
 			}
 
 		WorkflowLambda workflow = (clientId, userId, view) -> executeWith(clientId, userId, view);
@@ -195,13 +188,15 @@
 		
 		Scope of the lambda expressions, the scope of the enclosing type:
 		\begin{lstlisting}
+		@Service
 		public class OrderManagement {
 
-  			private double shippingCost = 4.90d;
+		   @Inject
+  			private ShippingCostService scService;
 
   			private void calculateOrder() {
-    			final double vatRate = 1.19d;
-    			final Function<Double, Double> withVAT = (Double x) -> { return (x * vatRate) + this.shippingCost; };
+    			/* final */ double vatRate = vatService.getVAT(Country.DE);
+    			Function<Double, Double> total = x -> (x * vatRate) + this.scService.getCost();
  			 }
 		}
 		\end{lstlisting}
@@ -220,9 +215,9 @@
 		Collections.sort(myList, FooComparator::compare);
 		
 		// if we'd an existing comparator
-		class FooComparator {
-  			public static int compare(final Integer firstInt, final Integer secondInt) {
-    		    return firstInt - secondInt;
+		public class ExistingComparator {
+  			public static Integer compare(Integer first, Integer second) {
+    		    return first - second;
   			}
 		}
 		\end{lstlisting}
@@ -296,8 +291,8 @@
 				\item Stream features:
 				\begin{itemize}
 				\item No storage. 
-				\item Functional in nature.
-				\item Lazy in majority.
+				\item Functional in nature (No side-effects).
+				\item Streams are lazy (except sort).
 				\item Allowed to be unbounded.
 				\item Consumable.
 				\end{itemize}
