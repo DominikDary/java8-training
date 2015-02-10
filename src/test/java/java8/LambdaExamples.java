@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.Random;
@@ -30,12 +30,19 @@ public class LambdaExamples {
     // let's create an array of numbers
     final List<Integer> integers = Arrays.<Integer>asList(1, 100, 65, 77, 11, 13);
 
+    Collections.sort(integers, new Comparator<Integer>() {
+      @Override
+      public int compare(final Integer x1, final Integer x2) {
+        return x1 - x2;
+      }
+    });
+
     // Sort the list in increasing order.
     Collections.sort(integers, (x1, x2) -> x1 - x2);
     System.out.println(integers);
 
     // Sort the list in decreasing order.
-    Collections.sort(integers, (x1, x2) -> x1 - x2);
+    Collections.sort(integers, (x1, x2) -> x2 - x1);
     System.out.println(integers);
   }
 
@@ -125,7 +132,7 @@ public class LambdaExamples {
     final List<Integer> integers = Arrays.<Integer>asList(1, 100, 65, 77, 11, 13, 14);
 
     // filter out the odd numbers
-    integers.stream().filter((x) -> x % 2 == 0).map(x -> {
+    integers.stream().filter(x -> x % 2 == 0).map(x -> {
       System.out.println(x);
       return Integer.toString(x);
     }); // expected nothing to see.
@@ -234,7 +241,7 @@ public class LambdaExamples {
     try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
 
       // find out the name of the devs as sorted list.
-     final List<String> dev = br.lines().filter((x) -> x.contains(DEV)).
+      final List<String> dev = br.lines().filter((x) -> x.contains(DEV)).
               map(Extractor::findName).
               sorted().
               collect(Collectors.toList());
@@ -263,5 +270,4 @@ public class LambdaExamples {
       return split[0].trim();
     }
   }
-
 }

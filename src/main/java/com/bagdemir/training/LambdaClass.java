@@ -26,24 +26,9 @@
 package com.bagdemir.training;
 
 
-import java.util.function.Function;
-import java.util.function.Supplier;
-
 public class LambdaClass {
 
-  @FunctionalInterface
-  interface Foo {
-    boolean bar();
-  }
-
-
   public static void main(String... args) {
-
-    Foo foo = () -> true;
-    System.out.println(foo.bar());
-
-    Function<String, Integer> function1 = str -> Integer.parseInt(str);
-    System.out.println(function1.apply("10"));
 
   }
 }
