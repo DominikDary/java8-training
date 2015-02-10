@@ -86,7 +86,7 @@
 	\end{frame}
 	
 	\begin{frame}{Lambda Expressions: Definition of Lambda}
-		\section{Definition of Lambda}
+		\section{Definition}
 		\begin{columns}
     			\begin{column}{0.3\textwidth}
 					\centering
@@ -95,9 +95,11 @@
     			\begin{column}{0.7\textwidth}
 					
 					\begin{itemize}
-						\item A formal system for expression the computational behaviour.
+						\item \textbf{A formal system for expressing computational behaviour}.
+						\begin{itemize}
 						\item Invented by Alonzo Church in 1930.	
-						\item Lambda expressions consist of many parentheses i.e in Y-combinator:					
+						\end{itemize}
+						\item Lambda expressions consist of many parentheses i.e in \textbf{Y-Combinator}:					
 					
 						\[ Y = \lambda f. (\lambda x. f (x x))(\lambda x. f (x x)) \]
 					\end{itemize}
@@ -106,7 +108,7 @@
 	\end{frame}	
 
 	\begin{frame}{Lambda Expressions: The Idea, behind}
-		\section{Definition of Lambda}
+		\section{The idea}
 		\begin{columns}
     			\begin{column}{0.3\textwidth}
 					\centering
@@ -115,11 +117,17 @@
     			\begin{column}{0.7\textwidth}
 					
 					\begin{itemize}
-						\item Functions are first-class citizens.
-						\item Lambda expressions are high order functions:
+						\item \textbf{Functions are first-class citizens.}
+						\item \textbf{Lambda expressions are high order functions:}
 						\begin{itemize}
-						\item They take other functions as parameter.	
+						\item They take other functions as a parameter.	
 						\item They may return functions.					
+						\end{itemize}
+						\item \textbf{The functions in Lambda all referentially transparent (pure functions). They:} 
+						\begin{itemize}
+						\item provide a better parallelisation (no side-effects),	
+						\item are easier to test,		
+						\item are cacheable and provide \textit{lazy} evaluation.				
 						\end{itemize}
 					\end{itemize}
     			\end{column}
@@ -128,7 +136,7 @@
 	
 	
 	\begin{frame}{Lambda Expressions: Java 8}
-	\section{Definition of Lambda}
+	\section{Lambdas in Java}
 	\begin{columns}
     	\begin{column}{0.3\textwidth}
 			\centering
@@ -148,14 +156,14 @@
 	\end{frame}	
 
 	\begin{frame}[fragile]{Lambda Expressions: Type of Lambda Expressions}
-		\section{Definition of Lambda}
-		The type of the lambda expressions are defined in \textbf{java.util.function}
+		\section{Type of Lambda in Java}
+		Types of lambda expressions are defined in the \textbf{java.util.function}
 		\begin{lstlisting}
 			Function<Integer, String> toStr = x -> Integer.parseValue(x);
 
 		\end{lstlisting}
 		
-		You can pass lambdas as parameter:
+		You can pass lambdas as a parameter:
 		
 		\begin{lstlisting}
 		final Double forNetPrice = 50.0d;
@@ -165,8 +173,8 @@
 	\end{frame}	
 	
 	\begin{frame}[fragile]{Lambda Expressions: Type of Lambda Expressions}
-		\section{Definition of Lambda}
-		If there is no functional interface in \textbf{java.util.function} package for your usage, create your own:
+		\section{Functional Interfaces}
+		If there is no functional interface in the \textbf{java.util.function} package for your usage, create your own:
 		\begin{lstlisting}
 			@FunctionalInterface
 			public interface WorkflowLambda {
@@ -184,9 +192,9 @@
 
 
 	\begin{frame}[fragile]{Lambda Expressions: Scope of Lambda Expressions}
-		\section{Definition of Lambda}
+		\section{Scope of Lambda Expressions}
 		
-		Scope of the lambda expressions, the scope of the enclosing type:
+		The scope of lambda expressions, the scope of the enclosing type:
 		\begin{lstlisting}
 		@Service
 		public class OrderManagement {
@@ -201,13 +209,13 @@
 		}
 		\end{lstlisting}
 		
-		The local variables can be referenced by lambda expression as long as they are \textbf{effective final}.
+		Local variables can be referenced by lambda expressions, as long as they are \textbf{effective final}.
 	\end{frame}	
 	
 	\begin{frame}[fragile]{Lambda Expressions: Method References}
-		\section{Definition of Lambda}
-		We can use the methods of existing classes as lambda expressions.
-		Method references are syntactic shortcut to the lambda expressions:
+		\section{Method References}
+		We can use methods of existing classes as lambda expressions.
+		Method references are syntactic shortcuts to the lambda expressions:
 		\begin{lstlisting}
 		// static <T> void sort(T[] a, Comparator<? super T> c)
 		
@@ -226,10 +234,10 @@
 	
 	% 
 	\begin{frame}[fragile]{Lambda Examples: forEach() }
-		\section{Definition of Lambda}
+		\section{forEach}
 			\begin{itemize}
 				\item Collections know how to iterate through their elements.
-				\item It's a better style than imperative external loops, which provides functional polymorphism.
+				\item It's a better style, which provides functional polymorphism, in comparison to imperative external loops.
 			\end{itemize}
 
 			\begin{lstlisting}
@@ -241,12 +249,12 @@
     		myList.forEach(System.out::println);
 			\end{lstlisting}
 			
-			An new method in "Collection" interface without breaking code ?
+			A new method in the "Collection" interface without breaking code?
 	\end{frame}	
 
 	% 
-	\begin{frame}[fragile]{Lambda Examples: Default Implementations }
-		\section{Definition of Lambda}
+	\begin{frame}[fragile]{Lambda Examples: Default Implementations}
+		\section{Default Implementations}
 		
 		Interfaces may have \textbf{default} implementations: 
 		\begin{lstlisting}
@@ -278,10 +286,10 @@
 
 	% Stream Intro
 	\begin{frame}[fragile]{Lambda Examples: Streams}
-		\section{Streams}
+		\section{Stream Definition}
 		
 			\begin{itemize}
-				\item Streams represent a sequence of elements which supports different kind of operations to perform computations on these elements. 
+				\item Streams represent a sequence of elements, which support different operations that perform computations on these elements. 
 				\item There are two types of operations:
 				\begin{itemize}
 					\item Intermediate Operations (filter, sort, etc.). 
@@ -305,7 +313,7 @@
 	\begin{frame}[fragile]{Lambda Examples: Stream Pipelines}
 		\section{Stream Pipeline}
 		
-		Processing pipeline consists of a source, intermediate operations and a terminal operation.
+		The processing pipeline consists of a source, intermediate operations and a terminal operation.
 		
 		\includegraphics[width=11cm]{pipeline}	
 		
@@ -314,7 +322,7 @@
 
 	% Stream Processing
 	\begin{frame}[fragile]{Lambda Examples: Stream Processing}
-		\section{Definition of Lambda}
+		\section{Stream Processing}
 		
 		\includegraphics[width=11cm]{processing}	
 		
@@ -322,7 +330,7 @@
 	
 	% Stream Processing
 	\begin{frame}[fragile]{Lambda Examples: Streams}
-		\section{Definition of Lambda}
+		\section{Stream Properties}
 		
 		\begin{itemize}
 			\item Stream sources: Arrays, Collections, Generators and I/O Streams, e.g:
@@ -336,8 +344,8 @@
 			}
    			\end{lstlisting}
 			
-			\item After terminal operation, the stream is considered to be consumed.
-			\item The intermediate operations are lazy and always return a new stream. (see Example 6)
+			\item After a terminal operation, the stream is considered to be consumed.
+			\item Intermediate operations are lazy and always return a new stream. (see Example 6)
 				
 		\end{itemize}
 		
@@ -345,7 +353,7 @@
 	
 	% Examples
 	\begin{frame}[fragile]{Lambda Examples: Code Samples}
-		\section{Definition of Lambda}
+		\section{Stream Examples}
 
 		Some examples (https://github.com/bagdemir/java8-training) : 
 		\begin{itemize}
@@ -361,7 +369,7 @@
 	
 	% Book Suggestions
 	\begin{frame}[fragile]{Lambda Examples: Finish}
-		\section{Definition of Lambda}
+		\section{Books}
 
 	\begin{columns}
     	\begin{column}{0.5\textwidth}
@@ -381,7 +389,7 @@
 			
 	% Links
 	\begin{frame}[fragile]{Links}
-		\section{Definition of Lambda}
+		\section{Links}
 		
 		\textbf{Lambda Quick Start}\\
 		Oracle.com : http://bit.ly/1eR0we0 \\
